@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <!-- Required meta tags -->
+   <meta charset="utf-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+   <!-- Bootstrap CSS -->
+  
+   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.1/css/all.css">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.1/css/v4-shims.css">
+<title>Pokeman</title>
+</head>
+<body>
+      <!--navigation bar -->
+      <div>
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <a class="navbar-brand" href="index.html">
+                <img src="../Pokeman/img/logo.png" width="70" height="40" class="d-inline-block align-top" alt="">
+              
+              </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse  justify-content-center" id="navbarNav">
+              <ul class="navbar-nav">
+               
+                <li class="nav-item">
+                  <a class="nav-link" href="stats.html">Stats</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="CTE.html">Candy to Evolve
+                </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link " href="PBD.html">Pokemon Buddy Distances</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link " href="PMCP.html">Pokemon Maximum CP</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link " href="FastMovies.html">
+                        Fast Moves</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link " href="pokName.html">
+                        Pokemon Names</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link " href="PokemonType.html">Pokemon Types
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link " href="PED.html">Pokemon Encounter Data
+                    </a>
+                  </li>
+                <li class="nav-item">
+                  <a class="nav-link " href="../index.html">Main_Home</a>
+                </li>
+              </ul>
+            </div>
+          </nav>
+    </div>
+<!--End of navigation bar-->
+<!--about-->
+<div class="container">
+    <h2>About</h2>
+    <p>Pokémon Go is a 2016 augmented reality mobile game developed and published by Niantic in collaboration with
+         The Pokémon Company for iOS and Android devices. A part of the Pokémon franchise,
+         the game is the result of a collaboration between Niantic, Nintendo and The Pokémon Company. </p>
+         <p> It uses the mobile device GPS to locate, capture, battle, and train virtual creatures, called Pokémon, 
+             which appear as if they are in the player's real-world location. The game is free to play; it uses a 
+             freemium business model and supports in-app purchases for additional in-game items. The game launched 
+             with around 150 species of Pokémon, 
+             which had increased to around 500 by 2019.</p>
+            
+
+            
+                <div id="carouselExampleSlidesOnly" class="carousel slide" data-ride="carousel">
+                    <div class="carousel-inner">
+                      <div class="carousel-item active">
+                        <img class="d-md-block w-100" height="550px" src="../Pokeman/img/imgg1.jpg" alt="First slide">
+                      </div>
+                      <div class="carousel-item">
+                        <img class="d-block w-100" src="../Pokeman/img/imgg2.jpg" alt="Second slide">
+                      </div>
+                      <div class="carousel-item">
+                        <img class="d-block w-100" src="../Pokeman/img/imgg3.jpg" alt="Third slide">
+                      </div>
+                      <div class="carousel-item">
+                        <img class="d-block w-100" src="../Pokeman/img/img.jpg" alt="Third slide">
+                      </div>
+                      
+                    </div>
+                  </div>
+                </div>
+            <div class="container">
+                <h2>More Details</h2>
+            
+                <h3>Pokemon Go API Documentation</h3>
+                <p>This page holds the the documentation about all the API's we offer holding Pokemon Go Data.</p>
+
+                <h3>GET /api/v1/pokemon_names.json</h3>
+                <p>Returns a json dict with the keys being the pokemon ID, the values are an array containing the pokemon name and ID.</p>
+ 
+                <div class="col-3">
+                    <img src="../Pokeman/img/img.jpg" height="250px" width="350px" alt="">
+        
+                </div>
+                
+                <h3>GET /api/v1/nesting_pokemon.json</h3>
+                <p>Only specific Pokemon will nest and this API lets you get the name and ID of all Pokemon known to currently nest.
+                 Returns a JSON dict with the keys being the Pokemon ID, the values are an array containing the pokemon name and ID</p>
+                 <div class="col-3">
+                    <img src="../Pokeman/img/imgg2.jpg" height="250px" width="350px" alt="">
+        
+                </div>
+                <h3>GET /api/v1/shiny_pokemon.json</h3>
+                <p>Returns a JSON dict with the keys being the Pokemon ID, the values are an array containing the Pokemon name, ID, 
+                    and how that shiny can be found.</p>
+                    <p>There are four main keys determining how the shiny can be found:
+                        <ul>
+                            <li>found_wild - True if the shiny Pokemon is found in the wild</li>
+                            <li>found_raid - True if the shiny Pokemon was once in, or currently is in raids as a shiny possibilit</li>
+                            <li>found_egg - True if the shiny Pokemon can be hatched from an egg as a shiny</li>
+                            <li>found_evolution - True if the Pokemon can be evolved from another shiny Pokemon</li>
+
+                        </ul>
+                    </p>
+                    <div class="col-3">
+                        <img src="../Pokeman/img/imgg3.jpg" height="250px" width="350px" alt="">
+            
+                    </div>
+
+                <h3>GET /api/v1/raidexclusivepokemon.json</h3>
+                <p>Returns a JSON dict with the keys being the Pokemon ID, the values are an array containing the Pokemon name, ID, and and level raid they can be found in.
+                    Currently all raid exclusive pokemon are tied to a specific raid level. In the future the API might need to change if this changes.</p>
+                    <div class="col-3">
+                        <img src="../Pokeman/img/img.jpg" height="250px" width="350px" alt="">
+            
+                    </div>
+                    
+                <h3>GET /api/v1/alolan_pokemon.json</h3>
+                <p>In Generation 7 of the Pokemon video games Alolan Pokemon were released. These are pokemon who canonically evolved in a different area so are subtly different from the standard Pokemon. These all look different and have different typing to classical pokemon. This API allows you to get a list of currently released alolan Pokemon.
+                Returns a JSON dict with the keys being the Pokemon ID, the values are an array containing the pokemon name and ID.</p>
+                <div class="col-3">
+                    <img src="../Pokeman/img/img4.jpg" height="250px" width="350px" alt="">
+        
+                </div>
+                
+                <h3>GET /api/v1/possibledittopokemon.json</h3>
+                <p>Ditto is a Pokemon that can transform into any Pokemon. In the wild you find him by catching a Pokemon which then transforms into Ditto. You cant tell which Pokemon might turn into a Ditto however if someone has caught a Ditto it will be a Ditto for everyone. This API allows you to get the list of Pokemon which are potentially a Ditto.
+                 Returns a JSON dict with the keys being the Pokemon ID, the values are an array containing the pokemon name and ID.</p>
+
+            </div>
+            
+<div class="container">
+    <div class="row">
+        
+        
+       
+     
+
+       
+    </div>
+</div>
+<div class="container end">
+    <div class="col bg-dark">
+        
+            <div class="container my-3 py-2 ">
+                <a href="#" class="fa fa-twitter" aria-hidden="true"></a>
+                <a href="#" class="fa fa-facebook" aria-hidden="true"></a>
+                <a href="#" class="fa fa-instagram" aria-hidden="true"></a>
+            
+            
+              </div>
+     
+        
+    </div>
+    
+</div>
+
+
+
+</body>
+</html>

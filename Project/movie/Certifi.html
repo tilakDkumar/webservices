@@ -1,0 +1,125 @@
+<html>
+    <head>
+
+        <title>Movie data</title>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    </head>
+
+    <body>
+      <ul class="nav bg-dark">
+        <li class="nav-item ">
+          <a class="nav-link active" href="index.html">Movie Home</a>
+        </li>
+        <li class="nav-item ">
+          <a class="nav-link active" href="search.html">Search by Name</a>
+        </li>
+        
+        <li class="nav-item">
+          <a class="nav-link" href="year.html">Search by year</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="actor.html">Search by Actor</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="Certifi.html">Certificate</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="../index.html">Main Home</a>
+        </li>
+      </ul>
+      <div class="container">
+        <div class="col-3 my-5">
+          <img src="./img/ghost.jpg" height="250px" width="350px" alt="">
+
+      </div>
+        <h1>Certificate</h1>
+        <div class="contrainer  form-group">
+            <div class="row">
+              <div class="col-4 ml-3">
+                
+                
+                <button type="button" onclick="onSearch()" class="btn btn-muted  m-2">click Here </button>
+             
+                
+              </div>
+             
+            </div>
+  
+          </div>
+     
+          <div>
+            <p id="disp" class="text-center font-weight-bold"></p>
+          </div>
+          <!--list of results-->
+          <div>
+            <ul id="list" class="list-group-item">
+    
+            </ul>
+          </div>
+        </div>
+          <!--end of resuls div-->
+          <script>
+                function onSearch(){
+               
+                    console.log('inoke a values');
+                   /* var inputEle=document.getElementById('searchInput');
+                    var searchText=inputEle.value;
+                    console.log( 'search text'+ searchText)*/
+                    var elem=document.getElementById('disp') ;
+                    var ajaxRequest=new XMLHttpRequest();
+                    console.log(ajaxRequest)
+                    ajaxRequest.onreadystatechange=function(){
+                        console.log('on ready state change stae'+this.readyState)
+                        console.log('on ready state change status'+this.status)
+                        if(this.readyState==4 && this.status==200){
+                                      //object
+                                        var res=this.responseText;
+                                        var jsonObj=JSON.parse(res);
+                                       // console.log(jsonObj);
+                                        var certiArray=jsonObj.certifications;
+                                       console.log( certiArray);
+                                       for(var i in certiArray){
+                                         var x=certiArray[i];
+                                         console.log(x);
+                                        // document.getElementById('list').innerHTML=certiArray.US;
+                                        // console.log(certiArray.CA);
+                                   if( x.length>0){
+                                          for(var t=0;t<x.length;t++){
+                                            var cert=x[t];
+                                            
+                                            console.log(cert.certification)
+
+                                            console.log(cert.meaning)
+                                            console.log(cert.order)
+                                            var liEle=document.createElement('li');
+                                             liEle.innerHTML=`${cert.certification}</br> ${cert.meaning}</br> ${cert.order}`;
+                                             liEle.setAttribute("class","list-group-item");
+                                             document.getElementById('list').appendChild(liEle);
+
+                                          }
+                                        } 
+                                       }                        
+                        }
+                    }
+                    var url=`https://api.themoviedb.org/3/certification/movie/list?api_key=7dc8b7ba74f1c4a391232280bbe1d1a1`;
+        ajaxRequest.open('GET',url,true)
+        ajaxRequest.send();
+                }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+          </script>
+    </body>
+</html>

@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+<!-- Bootstrap CSS -->
+
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.1/css/all.css">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.1/css/v4-shims.css">
+
+<title>Title</title>
+</head>
+<body>
+
+    <!--navigation bar -->
+ <div>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="index.html">
+            <img src="../Pokeman/img/logo.png" width="70" height="40" class="d-inline-block align-top" alt="">
+          
+          </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse  justify-content-center" id="navbarNav">
+          <ul class="navbar-nav">
+           
+            <li class="nav-item">
+              <a class="nav-link" href="./stats.html">Stats</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="./CTE.html">Candy to Evolve
+            </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link " href="./PBD.html">Pokemon Buddy Distances</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link " href="./PMCP.html">Pokemon Maximum CP</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link " href="./FastMovies.html"> Fast Moves</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link " href="./pokName.html">
+                    Pokemon Names</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link " href="./PokemonType.html">Pokemon Types
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link " href="./PBD.html">Pokemon Encounter Data
+                </a>
+              </li>
+            <li class="nav-item">
+              <a class="nav-link " href="../index.html">Main_Home</a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+</div>
+<!--End of navigation bar-->
+<div class="container">
+    <h3>About</h3>
+    <p>When encountering a Pokemon there are a number of metrics that influence the catch rate,
+         and what it does during the encounter. This API groups all the information that influences 
+         an encounter together. Returns a JSON array where each element is a dict containing attackprobability,
+          basecapturerate, basefleerate, dodgeprobability, maxpokemonactionfrequency, minpokemonactionfrequency,
+           Pokemon ID, Pokemon name and optionally the form. The fields attackprobability, basecapturerate, basefleerate,
+            and dodgeprobability are a value from 0 to 1. 0 represents 0% chance of it ocurring each turn and 1
+             represents 100% chance. The fields maxpokemonactionfrequency,
+         and minpokemonactionfrequency are in seconds representing the maximum and minimum amount of time between an action.</p>
+         <div class="row">
+         
+          <div class="col-5">
+            <img src="../Pokeman/img/s3.jpg" height="250px" width="350px">
+    
+        </div>
+        <div class="col-3">
+          <p>More Details About  Pokemon </p>
+          <button type="text" onclick="onSearch()" class="btn btn-muted  my-1">click Here </button></div>
+        
+    </div>
+       
+    <div>
+      <p id="disp" class="text-center font-weight-bold"></p>
+    </div>
+          <div>
+            
+            <ul id="list"  class=" font-weight-bold" >
+    
+            </ul>
+          </div>
+</div>
+
+
+
+<!---Script-->
+
+<script>
+  function onSearch(){
+    var data = null;
+
+var xhr = new XMLHttpRequest();
+xhr.withCredentials = true;
+
+xhr.addEventListener("readystatechange", function () {
+	if (this.readyState === this.DONE) {
+		console.log(this.responseText);
+        var res=this.responseText;
+        var jsonObj=JSON.parse(res);
+         console.log(jsonObj);
+         for(var i in jsonObj){
+         var outArray=jsonObj[i];
+         console.log(outArray);
+         var liEle=document.createElement('li');
+               liEle.innerHTML=`pokemon_name:${outArray.pokemon_name}</br>pokemon_id:${outArray.pokemon_id}</br>attack_probability:${outArray.attack_probability}</br> form:${outArray.form}</br> max_pokemon_action_frequency:${outArray.max_pokemon_action_frequency}</br>dodge_probability:${outArray.dodge_probability}</br>fbase_flee_rateorm:${outArray.base_flee_rate}</br>base_capture_rate:${outArray.base_capture_rate}</br>min_pokemon_action_frequency:${outArray.min_pokemon_action_frequency}</br> `;
+                liEle.setAttribute("class","list-group-item");
+                  document.getElementById('list').appendChild(liEle);
+
+         }
+    }
+});
+
+xhr.open("GET", "https://pokemon-go1.p.rapidapi.com/pokemon_encounter_data.json");
+xhr.setRequestHeader("x-rapidapi-host", "pokemon-go1.p.rapidapi.com");
+xhr.setRequestHeader("x-rapidapi-key", "4a570675a8mshbad696777abe79ap1496e7jsn70f3c360ae33");
+
+xhr.send(data);
+  }
+</script>
+
+</body>
+</html>

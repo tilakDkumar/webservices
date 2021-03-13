@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+     <!-- Required meta tags -->
+   <meta charset="utf-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+   <!-- Bootstrap CSS -->
+  
+   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.1/css/all.css">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.1/css/v4-shims.css">
+
+<title>Genius</title>
+</head>
+<body>
+
+    <!--navigation bar -->
+    <div>
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <a class="navbar-brand" href="index.html">
+                <img src="../Entertainment/img/Recipes.jpg" width="85" height="50" class="d-inline-block align-top" alt="">
+                Food AND Recipe
+              </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse  justify-content-center" id="navbarNav">
+              <ul class="navbar-nav">
+               
+                <li class="nav-item">
+                  <a class="nav-link" href="./LC.html">Love Calculator</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="./RP.html">Recipe Puppy
+                </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link " href="./tic.html">ticketresto</a>
+                </li>
+
+                <li class="nav-item">
+                  <a class="nav-link " href="../index.html">Main_Home</a>
+                </li>
+              </ul>
+            </div>
+          </nav>
+    </div>
+<!--End of navigation bar-->
+
+
+<div class="container">
+    <h3>About</h3>
+    <p>API des tickets restaurants, Nouvelle-Calédonie</p>
+         <div class="row">
+         
+          <div class="col-5">
+            <img src="./img/pat.webp" height="250px" width="450px">
+    
+        </div>
+        <div class="col-3">
+            
+  
+          <button type="text" onclick="onSearch()" class="btn btn-muted  my-1">click Here </button></div>
+        
+    </div>
+       
+    <div>
+      <p id="disp" class="text-center font-weight-bold"></p>
+    </div>
+          <div>
+            
+            <ul id="list"  class=" font-weight-bold" >
+    
+            </ul>
+          </div>
+</div>
+
+
+<script>
+    function onSearch(){
+        var data = null;
+
+var xhr = new XMLHttpRequest();
+xhr.withCredentials = true;
+
+xhr.addEventListener("readystatechange", function () {
+	if (this.readyState === this.DONE) {
+		console.log(this.responseText);
+        var res=this.responseText;
+        var jsonObj=JSON.parse(res);
+         console.log(jsonObj);
+         for(var i in jsonObj){
+         var x=jsonObj[i];
+          console.log(x);
+          var liEle=document.createElement('li');
+                   liEle.innerHTML=`name:${x.name}</br> category:${x.category}</br> foodType:${x.foodType}</br>phone: ${x.phone}</br>address: ${x.address}</br>city: ${x.city}</br>district: ${x.district}</br>googleMapsUrl: ${x.googleMapsUrl}`;
+                   liEle.setAttribute("class","list-group-item");
+                   document.getElementById('list').appendChild(liEle);
+
+         }
+
+	}
+});
+
+xhr.open("GET", "https://ticketresto-nc.p.rapidapi.com/partners");
+xhr.setRequestHeader("x-rapidapi-host", "ticketresto-nc.p.rapidapi.com");
+xhr.setRequestHeader("x-rapidapi-key", "4a570675a8mshbad696777abe79ap1496e7jsn70f3c360ae33");
+
+xhr.send(data);
+    }
+
+</script>
+
+
+</body>
+</html>

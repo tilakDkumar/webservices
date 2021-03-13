@@ -1,0 +1,113 @@
+<html>
+    <head>
+        <title>NASA_HOME</title>
+         <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+   
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+<link rel="stylesheet" href="../Nasa/stylee.css">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.1/css/all.css">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.1/css/v4-shims.css">
+    </head>
+    <body>
+        <!--navigation bar -->
+        <div>
+            <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                <a class="navbar-brand" href="index.html">
+                    <img src="../Nasa/img/nasa2.png" width="30" height="30" class="d-inline-block align-top" alt="">
+                   NASA
+                  </a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                  <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse  justify-content-center" id="navbarNav">
+                  <ul class="navbar-nav">
+                    
+                    <li class="nav-item">
+                      <a class="nav-link" href="Asteroid.html">AsteroidsNeoWs</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" href="EPIC.html">EPIC</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link " href="Techport.html">Techport</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link " href="../index.html">Main_Home</a>
+                    </li>
+                  </ul>
+                </div>
+              </nav>
+        </div>
+        <div class="container">
+          <h2>About_EPIC</h2>
+          <p>The EPIC API provides information on the daily imagery collected by DSCOVR's Earth Polychromatic Imaging Camera (EPIC) instrument.
+             Uniquely positioned at the Earth-Sun Lagrange point, EPIC provides full disc imagery of the Earth and captures unique perspectives 
+             of certain astronomical events such as lunar transits using a 2048x2048 pixel CCD (Charge Coupled Device) detector coupled to a
+              30-cm aperture Cassegrain telescope.</p>
+            <p>
+            Image metadata and key information are provided by the JSON API and can be requested by date and for the most recent available date.
+             A listing of all available dates can also be retrieved via the API for more granular control.</p>
+             <p>Development of the EPIC API began in 2015, and is supported by the web development team for
+                the Laboratory for Atmospheres in the Earth Sciences Division of the Goddard Space Flight Center. </p>
+        </div>
+        <!--start container-->
+        <div class="container">
+          <input type="date"  id="startInput"/>
+          <button type="button" onclick="onSearch()" class="btn btn-dark  m-2">click Here </button>
+          <div>
+            <p id="disp" class="text-center font-weight-bold"></p>
+          </div>
+          <div>
+            
+            <ul id="list" >
+    
+            </ul>
+          </div>
+  
+        </div>
+        
+        <!--script started-->
+        <script>
+          function onSearch(){
+            var inputElem=document.getElementById('startInput');
+               var startText=inputElem.value;
+               console.log( 'search text'+  startText)
+               document.getElementById('list').innerHTML='';
+            var ajaxRequest=new XMLHttpRequest();
+               console.log(ajaxRequest)
+               ajaxRequest.onreadystatechange=function(){
+                   console.log('on ready state change stae'+this.readyState)
+                   console.log('on ready state change status'+this.status)
+                   if(this.readyState==4 && this.status==200){
+                                 //object
+                                   var res=this.responseText;
+                                   var jsonObj=JSON.parse(res);
+                                   console.log(jsonObj);
+                                   for(var i in jsonObj){
+                                         var x=jsonObj[i];
+                                         console.log(x);
+                                         console.log(x.identifier)
+                                         console.log(x.image)
+                                         console.log(x.version)
+                                         var liEle=document.createElement('li');
+                                             liEle.innerHTML=`"identifier":${x.identifier}</br> "image id":${x.image}</br> "version":${x.version}`;
+                                                   liEle.setAttribute("class","list-group-item");
+                                       document.getElementById('list').appendChild(liEle);
+                                   }
+                   }
+               }
+               var url=`https://api.nasa.gov/EPIC/api/natural?api_key=J9sDB0ZdY5lqnlQXJfE8fm7d7UqJwoyO2mRhXgc6&date=${startText}`;
+        ajaxRequest.open('GET',url,true)
+        ajaxRequest.send();
+
+          }
+
+        </script>
+        <!--script ended-->
+
+        </body>
+        </html>

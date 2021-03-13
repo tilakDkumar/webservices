@@ -1,0 +1,269 @@
+<html>
+    <head>
+        <title>Asteroid_Info</title>
+          <!-- Required meta tags -->
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+          <!-- Bootstrap CSS -->
+   
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+        <link rel="stylesheet" href="../Nasa/stylee.css">
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.1/css/all.css">
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.1/css/v4-shims.css">
+    </head>
+    <body>
+        <!--navigation bar -->
+        <div>
+            <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                <a class="navbar-brand" href="index.html">
+                    <img src="../Nasa/img/nasa2.png" width="30" height="30" class="d-inline-block align-top" alt="">
+                   NASA
+                  </a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                  <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse  justify-content-center" id="navbarNav">
+                  <ul class="navbar-nav">
+                    
+                    <li class="nav-item">
+                      <a class="nav-link" href="./Asteroid.html">AsteroidsNeoWs</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" href="EPIC.html">EPIC</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link " href="Techport.html">Techport</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link " href="../index.html">Main_Home</a>
+                    </li>
+                  </ul>
+                </div>
+              </nav>
+        </div>
+        <!--End of navigation bar-->
+        <!--NEO-->
+        <div class="container">
+            <h2>Asteroids - NeoWs</h2>
+            <p>NeoWs (Near Earth Object Web Service) is a RESTful web service for near earth Asteroid information. 
+                With NeoWs a user can: search for Asteroids based on their closest approach date to Earth,
+                lookup a specific Asteroid with its NASA JPL small body id, as well as browse the overall data-set.</p>
+            <h2>Neo - Feed</h2>
+            <p>Retrieve a list of Asteroids based on their closest approach date to Earth.</p>
+            <input type="date"  id="startInput"/> To
+            <input type="date"  id="endInput"/>
+            <button type="button" onclick="onSearch()" class="btn btn-dark  m-2">click Here </button>
+            <!--disply values-->
+            <div>
+              <p id="disp" class="text-center font-weight-bold"></p>
+            </div>
+            <div>
+              
+              <ul id="list" class="list-group-item">
+      
+              </ul>
+            </div>
+            <!--end of display values-->
+         </div>
+         <!--End of NEO-->
+
+         <!--Neo - Lookup-->
+         <div class="container">
+             <h2>Neo - Lookup</h2>
+             <p>Lookup a specific Asteroid based on its NASA JPL small body (SPK-ID) ID</p>
+
+             <button type="button"  class="btn btn-dark  m-2" onclick="OnSearch()">click Here </button>
+             <div>
+              <p id="dispp" class="text-center font-weight-bold"></p>
+            </div>
+            <!--list of results-->
+            <div>
+              <ul id="listt" class="list-group-item">
+      
+              </ul>
+            </div>
+
+         </div>
+         <!--END OF Neo - Lookup-->
+         <!--Neo - Browse-->
+         <div class="container">
+             <h2>Neo - Browse</h2>
+             <p>Browse the overall Asteroid data-set</p>
+             <button type="button" onclick="ONSearch()" class="btn btn-dark  m-2">click Here </button>
+             <div>
+              <p id="disp" class="text-center font-weight-bold"></p>
+            </div>
+            <div>
+              
+              <ul id="lists" class="list-group-item">
+      
+              </ul>
+            </div>
+
+         </div>
+         <!--end of Neo - Browse-->
+        <!--Script-->
+        <script>
+
+
+
+            //NEO
+            function onSearch(){
+               
+               console.log('inoke a values');
+               //start
+              var inputElem=document.getElementById('startInput');
+               var startText=inputElem.value;
+               console.log( 'search text'+  startText)
+               //end
+               var inputEle=document.getElementById('endInput');
+          var endText=inputEle.value;
+          console.log( 'search text'+ endText)
+          /*
+          var ele=document.getElementById('disp');*/
+          document.getElementById('list').innerHTML='';
+          
+               var elem=document.getElementById('disp') ;
+               var ajaxRequest=new XMLHttpRequest();
+               console.log(ajaxRequest)
+               ajaxRequest.onreadystatechange=function(){
+                   console.log('on ready state change stae'+this.readyState)
+                   console.log('on ready state change status'+this.status)
+                   if(this.readyState==4 && this.status==200){
+                                 //object
+                                   var res=this.responseText;
+                                   var jsonObj=JSON.parse(res);
+                                   console.log(jsonObj);
+                                  var NEO=jsonObj.near_earth_objects;
+                                  console.log(NEO);
+                                  for(var i in NEO){
+                                         var x=NEO[i];
+                                         console.log(x);
+                                         if( x.length>0){
+                                          for(var t=0;t<x.length;t++){
+                                            var cert=x[t];
+                                            console.log(cert)
+                                            console.log(cert.links)
+
+console.log(cert.neo_reference_id)
+console.log(cert.absolute_magnitude_h)
+var liEle=document.createElement('li');
+                                             liEle.innerHTML=`"name":${cert.name}</br> "refernce id":${cert.neo_reference_id}</br> "Magnitude":${cert.absolute_magnitude_h}`;
+                                             liEle.setAttribute("class","list-group-item");
+                                             document.getElementById('list').appendChild(liEle);
+                                          }
+                                         }
+
+                                            
+                                 
+                                  }
+                  
+                 
+               
+                                  
+                                  
+                                }
+               }
+                    var url=`https://api.nasa.gov/neo/rest/v1/feed?start_date=${startText}&end_date=${endText}&api_key=J9sDB0ZdY5lqnlQXJfE8fm7d7UqJwoyO2mRhXgc6`;
+        ajaxRequest.open('GET',url,true)
+        ajaxRequest.send();
+                }
+                //End of NEO
+
+
+                //start of Neo - Lookup
+                function OnSearch(){
+                  console.log('inoke a values');
+                  var ajaxRequest=new XMLHttpRequest();
+          console.log(ajaxRequest)
+          ajaxRequest.onreadystatechange=function(){
+         
+            if(this.readyState==4 && this.status==200){
+                   //object
+                var res=this.responseText;
+                var jsonObj=JSON.parse(res);
+              console.log(jsonObj);
+              var NEO=jsonObj.close_approach_data;
+                console.log(NEO);
+                for(var i in NEO){
+                                         var x=NEO[i];
+                                        // console.log(x);
+                                         console.log(x.close_approach_date);
+                                         var liEle=document.createElement('li');
+                                             liEle.innerHTML=`"close_approach_date":${x.close_approach_date}</br> "close_approach_date_full":${x.close_approach_date_full}</br> "orbiting_body":${x.orbiting_body}`;
+                                             liEle.setAttribute("class","list-group-item");
+                                             document.getElementById('listt').appendChild(liEle);
+
+
+                }
+                
+
+               
+            }
+            }
+               
+            var url=`https://api.nasa.gov/neo/rest/v1/neo/3542519?api_key=J9sDB0ZdY5lqnlQXJfE8fm7d7UqJwoyO2mRhXgc6`;
+        ajaxRequest.open('GET',url,true)
+        ajaxRequest.send();
+                }
+//end of neo details
+function ONSearch(){
+  var ajaxRequest=new XMLHttpRequest();
+          console.log(ajaxRequest)
+          ajaxRequest.onreadystatechange=function(){
+         
+            if(this.readyState==4 && this.status==200){
+                   //object
+                var res=this.responseText;
+                var jsonObj=JSON.parse(res);
+              console.log(jsonObj);
+              var NEO=jsonObj.near_earth_objects;
+                                  console.log(NEO);
+                                  if(NEO.length>0){
+                 for(var t=0;t<NEO.length;t++){
+                   var NEOO=NEO[t];
+                   console.log(NEOO.id);
+                   console.log(NEOO.name)
+                   console.log(NEOO.neo_reference_id)
+                   console.log(NEOO.nasa_jpl_url)
+                   console.log(NEOO.designation)
+                   var liEle=document.createElement('li');
+                    liEle.innerHTML=`"ID":${NEOO.id}</br> "NAME":${NEOO.name}</br> "neo_reference_id":${NEOO.neo_reference_id}</br>"nasa_jpl_url"${NEOO.nasa_jpl_url}</br>"designation"${NEOO.designation}`;
+                                       liEle.setAttribute("class","list-group-item");
+                                             document.getElementById('lists').appendChild(liEle);
+
+            }
+                                  }
+            }
+
+          }
+          var url=`https://api.nasa.gov/neo/rest/v1/neo/browse?api_key=J9sDB0ZdY5lqnlQXJfE8fm7d7UqJwoyO2mRhXgc6`;
+        ajaxRequest.open('GET',url,true)
+        ajaxRequest.send();
+
+
+}
+
+
+
+
+        </script>
+        <!--End of Script-->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    </body>
+</html>

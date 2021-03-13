@@ -1,0 +1,168 @@
+<html>
+    <head>
+        <title>NASA_HOME</title>
+         <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+   
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+<link rel="stylesheet" href="../Nasa/stylee.css">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.1/css/all.css">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.1/css/v4-shims.css">
+    </head>
+    <body>
+        <!--navigation bar -->
+        <div>
+            <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                <a class="navbar-brand" href="index.html">
+                    <img src="../Nasa/img/nasa2.png" width="30" height="30" class="d-inline-block align-top" alt="">
+                   NASA
+                  </a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                  <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse  justify-content-center" id="navbarNav">
+                  <ul class="navbar-nav">
+                    
+                    <li class="nav-item">
+                      <a class="nav-link" href="Asteroid.html">AsteroidsNeoWs</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" href="EPIC.html">EPIC</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link " href="Techport.html">Techport</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link " href="../index.html">Main_Home</a>
+                    </li>
+                  </ul>
+                </div>
+              </nav>
+        </div>
+        <div class="container">
+          <h2>About_Techport</h2>
+          <p>Welcome to TechPort - NASA's resource for collecting and sharing information about NASA-funded technology development. 
+            Techport allows the public to discover the technologies NASA is working on every day to explore space, understand the universe,
+             and improve aeronautics. NASA is developing technologies in areas such as propulsion, nanotechnology, robotics, and human health.
+              NASA is committed to making its data available and machine-readable through an Application Programming Interface (API) to better 
+              serve its user communities. As such, the NASA TechPort system provides a RESTful web services API to make technology project data
+               available in a machine-readable format. This API can be used to export TechPort data into either an XML or a JSON format, 
+               which can then be further processed and analyzed.</p>
+        </div>
+        <div class="container">
+          <h3>Project ID's</h3>
+          <button type="button" onclick="onSearch()" class="btn btn-dark  m-2">click Here </button>
+          <div>
+            <p id="disp" class="text-center font-weight-bold"></p>
+          </div>
+          <div>
+            
+            <ul id="list" >
+    
+            </ul>
+          </div>
+  
+        </div>
+
+
+        <!--second container-->
+        <div class="container">
+          <h3>Details about Project </h3>
+          <h4 class="text-primary">Enter Project Id</h4>
+          <input type="text"  id="searchInput"/>
+          <button type="button" onclick="OnSearch()" class="btn btn-dark  m-2">click Here </button>
+          <div>
+            <p id="disp" class="text-center font-weight-bold"></p>
+          </div>
+          <div>
+            
+            <ul id="listt" >
+    
+            </ul>
+          </div>
+
+        </div>
+        <!---Scripts-->
+        <script>
+          function onSearch(){
+            var ajaxRequest=new XMLHttpRequest();
+               console.log(ajaxRequest)
+               ajaxRequest.onreadystatechange=function(){
+                   console.log('on ready state change stae'+this.readyState)
+                   console.log('on ready state change status'+this.status)
+                   if(this.readyState==4 && this.status==200){
+                                 //object
+                                   var res=this.responseText;
+                                   var jsonObj=JSON.parse(res);
+                                   console.log(jsonObj);
+                                   for(var i in jsonObj){
+                                         var x=jsonObj[i];
+                                         console.log(x);
+                                          var projectArray=x.projects;
+               if(projectArray.length>0){
+                 for(var t=0;t<projectArray.length;t++){
+                   var proj=projectArray[t];
+                   console.log(proj)
+                   console.log(proj.id)
+                   console.log(proj.lastUpdated)
+                   var liEle=document.createElement('li');
+                                             liEle.innerHTML=`"id":${proj.id}</br> "lastUpdated":${proj.lastUpdated}`;
+                                                   liEle.setAttribute("class","list-group-item");
+                                       document.getElementById('list').appendChild(liEle);
+
+                 }
+               }
+
+                                   }
+                   }
+               }
+               var url=`https://api.nasa.gov/techport/api/projects?api_key=J9sDB0ZdY5lqnlQXJfE8fm7d7UqJwoyO2mRhXgc6`;
+        ajaxRequest.open('GET',url,true)
+        ajaxRequest.send();
+
+          }
+          function OnSearch(){
+            var inputEle=document.getElementById('searchInput');
+          var searchText=inputEle.value;
+          console.log( 'search text'+ searchText)
+            
+            var ajaxRequest=new XMLHttpRequest();
+               console.log(ajaxRequest)
+               ajaxRequest.onreadystatechange=function(){
+                   console.log('on ready state change stae'+this.readyState)
+                   console.log('on ready state change status'+this.status)
+                   if(this.readyState==4 && this.status==200){
+                                 //object
+                                   var res=this.responseText;
+                                   var jsonObj=JSON.parse(res);
+                                   console.log(jsonObj);
+                                   var projArray=jsonObj.project;
+                                   console.log(projArray.lastUpdated)
+                                   var liEle=document.createElement('li');
+                   liEle.innerHTML=`ID: ${projArray.id}</br>LASTUPDATE: ${projArray.lastUpdated}<br/>TITLE: ${projArray.title}</br>STATUS:${projArray.status}</br>STARTDATE:${projArray.startDate}</br>ENDDATE:${projArray.endDate}</br>DESCRIPTION:${projArray.description}</br> BENEFITS :${projArray.benefits}`;
+                   liEle.setAttribute("class","list-group-item");
+                   document.getElementById('listt').appendChild(liEle);
+
+                                   
+                   }
+               }
+
+var url=`https://api.nasa.gov/techport/api/projects/${searchText}?api_key=J9sDB0ZdY5lqnlQXJfE8fm7d7UqJwoyO2mRhXgc6`;
+        ajaxRequest.open('GET',url,true)
+        ajaxRequest.send();
+
+          }
+
+
+
+
+
+
+        </script>
+        <!---End of Scripts-->
+
+        </body>
+        </html>
